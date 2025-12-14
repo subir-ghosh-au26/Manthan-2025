@@ -8,7 +8,11 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: ["https://manthan-2025-xi.vercel.app", "http://localhost:5173"],
+  methods: ["GET", "POST"],
+  credentials: true
+}));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
