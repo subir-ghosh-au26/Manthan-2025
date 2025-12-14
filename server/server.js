@@ -40,5 +40,10 @@ app.get('/api/feedback', async (req, res) => {
   }
 });
 
+
+app.get('/ping', (req, res) => {
+  res.send('pong');
+});
+
 const PORT = 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

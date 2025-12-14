@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import DelegateForm from './components/DelegateForm/DelegateForm';
-import AdminDashboard from './components/Admin/AdminDashboard';
 import './index.css';
+
+const AdminDashboard = lazy(() => import('./components/Admin/AdminDashboard'));
+
+const LoadingFallback = () => (
+  <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
+    Loading Dashboard...
+  </div>
+);
 
 function App() {
   return (
@@ -13,7 +20,14 @@ function App() {
           <Route path="/" element={<DelegateForm />} />
           
           {/* Private Route: The Admin Panel */}
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route 
+            path="/admin" 
+            element={
+              <Suspense fallback={<LoadingFallback />}>
+                <AdminDashboard />
+              </Suspense>
+            } 
+          />
         </Routes>
       </div>
     </Router>
