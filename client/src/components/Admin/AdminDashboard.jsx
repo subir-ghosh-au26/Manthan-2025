@@ -375,7 +375,10 @@ const AdminDashboard = () => {
             <LayoutDashboard size={20} /> Recent Comments
           </div>
           <div style={{ overflowY: "auto", flex: 1 }}>
-            {data.slice(0, 5).map((item, i) => (
+            {[...data]
+      .sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt))
+      .slice(0, 5)
+      .map((item, i) => (
               <div
                 key={i}
                 style={{ padding: "15px 0", borderBottom: "1px solid #e2e8f0" }}
